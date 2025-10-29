@@ -856,6 +856,7 @@ class App extends Component {
           {isMintPage ? (
             <MintComponent
               notconnected={!addy}
+              addy={addy}
               openModal={this.openModal.bind(this)}
             ></MintComponent>
           ) : addy ? (

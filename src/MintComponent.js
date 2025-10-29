@@ -267,7 +267,7 @@ class MintComponent extends Component {
                     small
                     style={{ width: "90%", left: "50%", display: "block", backgroundColor: "#ffce19", color: "black" }}
                     onClick={async function () {
-                      const addy = eth.selectedAddress;
+                      const addy = this.props.addy;
                       try {
                         if (
                           minimumApprove.gt(
@@ -276,10 +276,17 @@ class MintComponent extends Component {
                             )
                           )
                         ) {
-                          const txh = await sendTransaction(
-                            PaymentTokenContract,
-                            ERC20Approve
-                          );
+                          const txh = await eth.request({
+                            method: "eth_sendTransaction",
+                            params: [
+                              {
+                                from: addy,
+                                to: PaymentTokenContract,
+                                data: ERC20Approve,
+                                chainId: "0x61"
+                              }
+                            ]
+                          });
                           // wait for approval to be mined and allowance to reflect
                           const wait = (ms) => new Promise((r) => setTimeout(r, ms));
                           let mined = false;
@@ -331,10 +338,17 @@ class MintComponent extends Component {
                         let remaining = this.state.quantity;
                         while (remaining > 0) {
                           const thisBatch = await findMaxBatch(remaining);
-                          const txHash = await sendTransaction(
-                            NFTContract,
-                            mint(addy, thisBatch.toString(), "0x").encodeABI()
-                          );
+                          const txHash = await eth.request({
+                            method: "eth_sendTransaction",
+                            params: [
+                              {
+                                from: addy,
+                                to: NFTContract,
+                                data: mint(addy, thisBatch.toString(), "0x").encodeABI(),
+                                chainId: "0x61"
+                              }
+                            ]
+                          });
                           for (let i = 0; i < 60; i++) {
                             const rcpt = await eth.request({ method: "eth_getTransactionReceipt", params: [txHash] });
                             if (rcpt && rcpt.status === "0x1") break;
@@ -355,7 +369,7 @@ class MintComponent extends Component {
                         "Congratulations! Your NFT has been successfully minted and added to your collection."
                       );
                     }.bind(this)}
-                    disabled={this.notconnected && !eth?.selectedAddress}
+                    disabled={!this.props.addy}
                   >
                     Mint
                   </Button>
