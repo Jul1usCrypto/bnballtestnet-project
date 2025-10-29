@@ -1,0 +1,15 @@
+{
+  "name": "Gashapon Common #9",
+  "description": "Gashapon common variant (temporary single-image metadata).",
+  "image": "ipfs://bafybeic7u5p7ckn7n2gujw42rej6hsy4n2uazd3fu7uo2er5jx3y4m3rta",
+  "attributes": [
+    {
+      "trait_type": "Tier",
+      "value": "Common"
+    },
+    {
+      "trait_type": "Variant",
+      "value": 9
+    }
+  ]
+}

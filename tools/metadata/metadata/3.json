@@ -1,0 +1,11 @@
+{
+  "name": "Legendary #1",
+  "description": "Legendary tier NFT from the collection.",
+  "image": "ipfs://bafybeigkbyxwrifew3oyj7kgyx5mzawbxt6c77bjzo2pxxtcevcxfinguy",
+  "attributes": [
+    {
+      "trait_type": "Rarity",
+      "value": "Legendary"
+    }
+  ]
+}

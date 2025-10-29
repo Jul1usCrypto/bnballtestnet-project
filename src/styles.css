@@ -1,0 +1,82 @@
+.App {
+  min-height: 80vh;
+}
+#offsetbtn {
+  position: absolute;
+  right: calc(5% - 10px);
+  z-index: 9;
+  top: 25%;
+}
+#rules {
+  top: 25%;
+}
+.container2 {
+  margin: 0 auto;
+  width: 90%;
+}
+#largebg {
+  display: none;
+}
+#smallbg {
+  display: block;
+}
+@media only screen and (min-width: 601px) {
+  #rules {
+    top: 35%;
+  }
+  #offsetbtn {
+    right: calc(7.5% - 10px);
+    top: 35%;
+  }
+  .container2 {
+    width: 85%;
+  }
+}
+
+@media only screen and (min-width: 993px) {
+  #largebg {
+    display: block;
+  }
+  #smallbg {
+    display: none;
+  }
+  #offsetbtn {
+    right: calc(15% - 10px);
+    top: 15%;
+  }
+  .container2 {
+    width: 70%;
+  }
+  #rules {
+    top: 15%;
+  }
+}
+
+button:active {
+  border-bottom: 0px !important;
+  border-left: 0px !important;
+}
+
+button:not(.darkpinkborder),
+a.btn:not(.darkpinkborder),
+.darkpinkborder:disabled {
+  border-bottom: 5px solid black !important;
+  border-left: 5px solid black !important;
+}
+
+.darkpinkborder {
+  border-bottom: 5px solid #ffce19 !important;
+  border-left: 5px solid #ffce19 !important;
+}
+button,
+a.btn {
+  background-color: #ffce19 !important;
+
+  font-family: "CustomFont" !important;
+  border-radius: 999px 999px 999px 999px !important;
+}
+
+@font-face {
+  font-family: "CustomFont";
+  src: url("./assets/fonts/FranxurterMedium-gxwjp.ttf");
+}

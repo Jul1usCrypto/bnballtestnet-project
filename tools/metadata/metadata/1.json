@@ -1,0 +1,11 @@
+{
+  "name": "Common #1",
+  "description": "Common tier NFT from the collection.",
+  "image": "ipfs://bafybeic7u5p7ckn7n2gujw42rej6hsy4n2uazd3fu7uo2er5jx3y4m3rta",
+  "attributes": [
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    }
+  ]
+}

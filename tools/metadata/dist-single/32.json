@@ -1,0 +1,15 @@
+{
+  "name": "Gashapon Legendary #12",
+  "description": "Gashapon legendary variant (temporary single-image metadata).",
+  "image": "ipfs://bafybeigkbyxwrifew3oyj7kgyx5mzawbxt6c77bjzo2pxxtcevcxfinguy",
+  "attributes": [
+    {
+      "trait_type": "Tier",
+      "value": "Legendary"
+    },
+    {
+      "trait_type": "Variant",
+      "value": 32
+    }
+  ]
+}
