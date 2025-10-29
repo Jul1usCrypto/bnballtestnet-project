@@ -1,0 +1,4 @@
+{
+  "buildCommand": "npm ci && node node_modules/react-scripts/bin/react-scripts.js build",
+  "outputDirectory": "build"
+}
