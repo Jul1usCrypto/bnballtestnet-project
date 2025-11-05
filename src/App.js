@@ -356,12 +356,12 @@ class NFTList extends Component {
 
     if (nftlist === null) {
       return (
-        <div className="App" style={{ backgroundColor: "#FFAAC9" }}>
-          <h1 style={{ color: "black", width: "100%" }}>
+        <div className="App" style={{ backgroundColor: "#111", padding: 16 }}>
+          <h1 style={{ color: "#ffce19", width: "100%", margin: 0 }}>
             Loading collection...
           </h1>
-          <div className="progress">
-            <div className="indeterminate"></div>
+          <div className="progress" style={{ backgroundColor: "#333" }}>
+            <div className="indeterminate" style={{ backgroundColor: "#ffce19" }}></div>
           </div>
         </div>
       );
