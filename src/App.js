@@ -245,8 +245,7 @@ class NFTList extends Component {
     this.addy = props.addy;
     this.state = {
       nftlist: null,
-      claimLegendarySets: 1,
-      jackpotClaims: 1
+      claimLegendarySets: 1
     };
     this.minjackpot = props.minjackpot ?? "1";
     this.NFTListLOCK = false;
@@ -489,51 +488,20 @@ class NFTList extends Component {
             >
               claim legendary
             </button>
-            <div className="col s12" style={{ display: "flex", gap: 8, alignItems: "center", marginTop: 8 }}>
-              <span style={{ color: "black" }}>Jackpot claims:</span>
-              <button className="btn" style={{ minWidth: 36, padding: "0 10px" }} onClick={() => this.setState({ jackpotClaims: Math.max(1, this.state.jackpotClaims - 1) })}>-</button>
-              <input style={{ width: 60, textAlign: "center", color: "black", background: "#fff", borderRadius: 6 }} value={this.state.jackpotClaims} readOnly />
-              <button className="btn" style={{ minWidth: 36, padding: "0 10px" }} onClick={() => this.setState({ jackpotClaims: this.state.jackpotClaims + 1 })}>+</button>
-              {
-                /* compute how many full legendary sets exist for jackpot */
-              }
-            </div>
-            {
-              (() => {
-                let maxJackpots = Infinity;
-                for (let v = 21; v <= 40; v++) {
-                  const arr = legendaryMap[v] || [];
-                  if (arr.length < maxJackpots) maxJackpots = arr.length;
+            <button
+              className="btn waves-effect waves-light col s12 m6"
+              disabled={!jackpotBurnABI}
+              onClick={async function () {
+                try {
+                  await sendTransaction(jackpotBurnABI);
+                } catch (e) {
+                  console.log(e);
                 }
-                if (maxJackpots === Infinity) maxJackpots = 0;
-                const claimsToDo = Math.min(this.state.jackpotClaims, maxJackpots);
-                return (
-                  <button
-                    className="btn waves-effect waves-light col s12 m6"
-                    disabled={maxJackpots < 1}
-                    onClick={async function () {
-                      try {
-                        const wait = (ms) => new Promise((r) => setTimeout(r, ms));
-                        for (let k = 0; k < claimsToDo; k++) {
-                          const list = [];
-                          for (let v = 21; v <= 40; v++) list.push(legendaryMap[v][k]);
-                          const abi = burnCollection2(list, addy).encodeABI();
-                          const txHash = await sendTransaction(abi);
-                          for (let i = 0; i < 60; i++) {
-                            const rcpt = await window.ethereum.request({ method: "eth_getTransactionReceipt", params: [txHash] });
-                            if (rcpt && rcpt.status === "0x1") break;
-                            await wait(1500);
-                          }
-                        }
-                      } catch (e) { console.log(e); }
-                    }}
-                    style={{ flex: "none" }}
-                  >
-                    claim jackpot
-                  </button>
-                );
-              })()
-            }
+              }}
+              style={{ flex: "none" }}
+            >
+              claim jackpot
+            </button>
           </Row>
           <img
             src="jackpot-dashboard.png"
@@ -705,7 +673,7 @@ class NFTCollapsible extends Component {
                       width: "100%"
                     }
                   : {
-                      backgroundColor: "#ff7bac",
+                      backgroundColor: "#ffce19",
                       borderRadius: "999px 999px 999px 999px",
                       borderBottom: "5px solid black",
                       borderLeft: "5px solid black",
