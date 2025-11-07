@@ -88,7 +88,8 @@ class MintComponent extends Component {
       quantity: 1,
       mintCount: 0,
       priceWei: "0",
-      showMintAnimation: false
+      showMintAnimation: false,
+      showSuccessHeader: false
     };
     this.openModal = props.openModal;
     this.notconnected = props.notconnected;
@@ -409,6 +410,36 @@ class MintComponent extends Component {
             alignItems: 'center',
             gap: '20px'
           }}>
+            {/* Success Header - fades in after video */}
+            <div style={{
+              opacity: this.state.showSuccessHeader ? 1 : 0,
+              transform: this.state.showSuccessHeader ? 'translateY(0)' : 'translateY(-20px)',
+              transition: 'all 0.8s ease-in-out',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              marginBottom: '10px'
+            }}>
+              <h1 style={{
+                color: '#ffce19',
+                fontSize: '2.5rem',
+                fontWeight: 'bold',
+                margin: 0,
+                textShadow: '0 0 20px rgba(255, 206, 25, 0.5)'
+              }}>
+                Mint Successful
+              </h1>
+              <img 
+                src="/warning.png" 
+                alt="!" 
+                style={{
+                  width: '40px',
+                  height: '40px',
+                  animation: this.state.showSuccessHeader ? 'bounce 1s ease-in-out' : 'none'
+                }}
+              />
+            </div>
+            
             <video
               autoPlay
               muted
@@ -419,7 +450,8 @@ class MintComponent extends Component {
                 maxHeight: '60vh'
               }}
               onEnded={() => {
-                // Keep video on screen after playing - do nothing
+                // Show success header after video finishes
+                this.setState({ showSuccessHeader: true });
               }}
             >
               <source src="/gashapon-mint-animation.mp4" type="video/mp4" />
@@ -428,6 +460,9 @@ class MintComponent extends Component {
             
             {/* Action Buttons */}
             <div style={{
+              opacity: this.state.showSuccessHeader ? 1 : 0,
+              transform: this.state.showSuccessHeader ? 'translateY(0)' : 'translateY(20px)',
+              transition: 'all 0.6s ease-in-out 0.3s',
               display: 'flex',
               gap: '15px',
               justifyContent: 'center',
@@ -435,7 +470,7 @@ class MintComponent extends Component {
             }}>
               <button
                 onClick={() => {
-                  this.setState({ showMintAnimation: false });
+                  this.setState({ showMintAnimation: false, showSuccessHeader: false });
                   window.location.href = '/dashboard';
                 }}
                 style={{
@@ -463,7 +498,7 @@ class MintComponent extends Component {
               
               <button
                 onClick={() => {
-                  this.setState({ showMintAnimation: false });
+                  this.setState({ showMintAnimation: false, showSuccessHeader: false });
                   // Stay on current page (mint page)
                 }}
                 style={{
