@@ -87,7 +87,8 @@ class MintComponent extends Component {
     this.state = {
       quantity: 1,
       mintCount: 0,
-      priceWei: "0"
+      priceWei: "0",
+      showMintAnimation: false
     };
     this.openModal = props.openModal;
     this.notconnected = props.notconnected;
@@ -364,10 +365,13 @@ class MintComponent extends Component {
                         );
                         return;
                       }
-                      this.openModal(
-                        "NFT minted successfully",
-                        "Congratulations! Your NFT has been successfully minted and added to your collection."
-                      );
+                      this.setState({ showMintAnimation: true });
+                      setTimeout(() => {
+                        this.openModal(
+                          "NFT minted successfully",
+                          "Congratulations! Your NFT has been successfully minted and added to your collection."
+                        );
+                      }, 3000); // Show modal after video plays
                     }.bind(this)}
                     disabled={!this.props.addy}
                   >
@@ -389,6 +393,39 @@ class MintComponent extends Component {
           </div>
         </div>
       </div>
+      
+      {/* Mint Animation Overlay */}
+      {this.state.showMintAnimation && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 9999
+        }}>
+          <video
+            autoPlay
+            muted
+            style={{
+              width: '560px',
+              height: '560px',
+              maxWidth: '90vw',
+              maxHeight: '90vh'
+            }}
+            onEnded={() => {
+              // Keep video on screen after playing - do nothing
+            }}
+          >
+            <source src="/gashapon-mint-animation.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      )}
     );
   }
   async updateTotalSupply() {
