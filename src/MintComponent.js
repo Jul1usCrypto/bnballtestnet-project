@@ -426,6 +426,7 @@ class MintComponent extends Component {
           </video>
         </div>
       )}
+      </div>
     );
   }
   async updateTotalSupply() {
