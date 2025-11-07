@@ -127,6 +127,7 @@ class MintComponent extends Component {
     const totalToken = fromWei(totalWei, "ether");
 
     return (
+      <>
       <div
         style={{
           display: "flex",
@@ -426,7 +427,7 @@ class MintComponent extends Component {
           </video>
         </div>
       )}
-      </div>
+      </>
     );
   }
   async updateTotalSupply() {
