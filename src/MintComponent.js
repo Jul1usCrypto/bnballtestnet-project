@@ -367,12 +367,6 @@ class MintComponent extends Component {
                         return;
                       }
                       this.setState({ showMintAnimation: true });
-                      setTimeout(() => {
-                        this.openModal(
-                          "NFT minted successfully",
-                          "Congratulations! Your NFT has been successfully minted and added to your collection."
-                        );
-                      }, 3000); // Show modal after video plays
                     }.bind(this)}
                     disabled={!this.props.addy}
                   >
@@ -409,22 +403,125 @@ class MintComponent extends Component {
           alignItems: 'center',
           zIndex: 9999
         }}>
-          <video
-            autoPlay
-            muted
-            style={{
-              width: '560px',
-              height: '560px',
-              maxWidth: '90vw',
-              maxHeight: '90vh'
-            }}
-            onEnded={() => {
-              // Keep video on screen after playing - do nothing
-            }}
-          >
-            <source src="/gashapon-mint-animation.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '20px'
+          }}>
+            <video
+              autoPlay
+              muted
+              style={{
+                width: '400px',
+                height: '400px',
+                maxWidth: '80vw',
+                maxHeight: '60vh'
+              }}
+              onEnded={() => {
+                // Keep video on screen after playing - do nothing
+              }}
+            >
+              <source src="/gashapon-mint-animation.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            
+            {/* Action Buttons */}
+            <div style={{
+              display: 'flex',
+              gap: '15px',
+              justifyContent: 'center',
+              flexWrap: 'wrap'
+            }}>
+              <button
+                onClick={() => {
+                  this.setState({ showMintAnimation: false });
+                  window.location.href = '/dashboard';
+                }}
+                style={{
+                  backgroundColor: '#ffce19',
+                  color: 'black',
+                  border: 'none',
+                  padding: '12px 24px',
+                  borderRadius: '8px',
+                  fontSize: '16px',
+                  fontWeight: 'bold',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseOver={(e) => {
+                  e.target.style.transform = 'scale(1.05)';
+                  e.target.style.boxShadow = '0 4px 12px rgba(255, 206, 25, 0.4)';
+                }}
+                onMouseOut={(e) => {
+                  e.target.style.transform = 'scale(1)';
+                  e.target.style.boxShadow = 'none';
+                }}
+              >
+                Dashboard
+              </button>
+              
+              <button
+                onClick={() => {
+                  this.setState({ showMintAnimation: false });
+                  // Stay on current page (mint page)
+                }}
+                style={{
+                  backgroundColor: '#ffce19',
+                  color: 'black',
+                  border: 'none',
+                  padding: '12px 24px',
+                  borderRadius: '8px',
+                  fontSize: '16px',
+                  fontWeight: 'bold',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseOver={(e) => {
+                  e.target.style.transform = 'scale(1.05)';
+                  e.target.style.boxShadow = '0 4px 12px rgba(255, 206, 25, 0.4)';
+                }}
+                onMouseOut={(e) => {
+                  e.target.style.transform = 'scale(1)';
+                  e.target.style.boxShadow = 'none';
+                }}
+              >
+                Mint More
+              </button>
+              
+              <button
+                onClick={() => {
+                  const tweetText = `Just minted ${this.state.quantity} Gashapon NFTs and burned ${fromWei(toBigNumber(this.state.priceWei).mul(toBigNumber(this.state.quantity)), "ether")} $BNBALL tokens! 🎯🚀\n\nJoin the fun: [YourWebsiteURL]`;
+                  const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
+                  window.open(tweetUrl, '_blank');
+                }}
+                style={{
+                  backgroundColor: '#1DA1F2',
+                  color: 'white',
+                  border: 'none',
+                  padding: '12px 24px',
+                  borderRadius: '8px',
+                  fontSize: '16px',
+                  fontWeight: 'bold',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}
+                onMouseOver={(e) => {
+                  e.target.style.transform = 'scale(1.05)';
+                  e.target.style.boxShadow = '0 4px 12px rgba(29, 161, 242, 0.4)';
+                }}
+                onMouseOut={(e) => {
+                  e.target.style.transform = 'scale(1)';
+                  e.target.style.boxShadow = 'none';
+                }}
+              >
+                🐦 Tweet
+              </button>
+            </div>
+          </div>
         </div>
       )}
       </>
